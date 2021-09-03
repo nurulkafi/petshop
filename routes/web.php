@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\RoleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.dashboard');
 });
 
 Auth::routes();
