@@ -11,9 +11,29 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 Breadcrumbs::for('home', function ($trail) {
     $trail->push('Home', route('home'));
 });
+//Home > PetCategory
+Breadcrumbs::for('pet_category', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Pet Category', route('pet_category.index'));
+});
+
+// Home > Pet
+Breadcrumbs::for('pet', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Role', route('pet.index'));
+});
+// Home > Pet > Create
+Breadcrumbs::for('create_pet', function ($trail) {
+    $trail->parent('pet');
+    $trail->push('Create', route('pet.create'));
+});
+
 // Home > Role
 Breadcrumbs::for('role', function ($trail) {
     $trail->parent('home');
     $trail->push('Role', route('role.index'));
 });
+
+
+
 ?>

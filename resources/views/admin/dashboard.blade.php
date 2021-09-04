@@ -1,4 +1,5 @@
 @extends('admin.layouts.master')
+@section('Dashboard','active')
 @section('content')
 <div class="page-heading">
                 <h3>Profile Statistics</h3>

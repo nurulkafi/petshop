@@ -2,3 +2,4 @@
 <script src="{{ asset('admin/assets/js/bootstrap.bundle.min.js') }}"></script>
 @stack('dashboard')
 <script src="{{ asset('admin/assets/js/main.js') }}"></script>
+@stack('script')

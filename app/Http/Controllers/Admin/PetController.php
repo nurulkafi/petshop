@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Controller;
+use App\Models\Pet;
+use App\Models\PetCategory;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class RoleController extends Controller
+class PetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $role = Role::get();
-        return view('admin.role.index',compact('role'));
+        //
+        $pet = Pet::get();
+        return view('admin.pet.pet.index',compact('pet'));
     }
 
     /**
@@ -28,9 +28,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
-        $permission = Permission::get();
-        return view('admin.role.create',compact('permission'));
+        $category = PetCategory::get();
+        return view('admin.pet.pet.create',compact('category'));
     }
 
     /**
@@ -41,13 +40,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create([
-            'name' => $request->name,
-            'guard_name' => 'web'
-        ]);
-        $role->syncPermissions($request->permission);
-        Alert::success('Success','Add Role!');
-        return redirect('role');
+        //
     }
 
     /**
@@ -92,9 +85,9 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
-        $role->delete();
-        Alert::success('Success','Delete Role!');
-        return redirect('role');
+        //
+    }
+    public function edit_image($id){
+        //
     }
 }

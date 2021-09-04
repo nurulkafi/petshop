@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Controller;
+use App\Models\PetCategory;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Auth;
 
-class RoleController extends Controller
+class PetCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $role = Role::get();
-        return view('admin.role.index',compact('role'));
+        $petCategory = PetCategory::get();
+        return view('admin.pet.category.index',compact('petCategory'));
     }
 
     /**
@@ -29,8 +28,6 @@ class RoleController extends Controller
     public function create()
     {
         //
-        $permission = Permission::get();
-        return view('admin.role.create',compact('permission'));
     }
 
     /**
@@ -41,13 +38,15 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create([
+        $saved = PetCategory::create([
             'name' => $request->name,
-            'guard_name' => 'web'
+            'user_id' => Auth::user()->id
         ]);
-        $role->syncPermissions($request->permission);
-        Alert::success('Success','Add Role!');
-        return redirect('role');
+        if ($saved) {
+            return redirect()->back()->with('success', 'Data added Successfully');
+        }else{
+            return redirect()->back()->with('failed', 'Data added failed');
+        }
     }
 
     /**
@@ -67,9 +66,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
-        //
+
     }
 
     /**
@@ -81,7 +80,11 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $petCategory = PetCategory::findOrFail($id);
+        $petCategory->name = $request->name;
+        $petCategory->user_id = Auth::user()->id;
+        $petCategory->save();
+        return redirect()->back()->with('success', 'Data updated Successfully');
     }
 
     /**
@@ -92,9 +95,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::findOrFail($id);
-        $role->delete();
-        Alert::success('Success','Delete Role!');
-        return redirect('role');
+        $petCategory = PetCategory::findOrFail($id);
+        $petCategory->delete();
+        return redirect()->back()->with('success', 'Data delete Successfully');
     }
 }

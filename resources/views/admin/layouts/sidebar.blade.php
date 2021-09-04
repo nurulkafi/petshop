@@ -12,8 +12,8 @@
     <div class="sidebar-menu">
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
-            <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item @yield('Dashboard') ">
+                <a href="{{ route('home') }}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
@@ -31,11 +31,11 @@
                     <span>Pet</span>
                 </a>
                 <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="component-alert.html">Category</a>
+                    <li class="submenu-item @yield('PetCategory')">
+                        <a href="{{ route('pet_category.index') }}">Category</a>
                     </li>
-                    <li class="submenu-item ">
-                        <a href="component-badge.html">Pet</a>
+                    <li class="submenu-item " @yield('Pet')'>
+                        <a href="{{ route('pet.index') }}">Pet</a>
                     </li>
                 </ul>
             </li>

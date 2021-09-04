@@ -11,4 +11,5 @@
         </div>
     </div>
     @include('admin.layouts.script')
+    @include('admin.layouts.toastr')
 </body>
