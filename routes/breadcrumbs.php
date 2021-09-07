@@ -20,12 +20,22 @@ Breadcrumbs::for('pet_category', function ($trail) {
 // Home > Pet
 Breadcrumbs::for('pet', function ($trail) {
     $trail->parent('home');
-    $trail->push('Role', route('pet.index'));
+    $trail->push('Pet', route('pet.index'));
 });
 // Home > Pet > Create
 Breadcrumbs::for('create_pet', function ($trail) {
     $trail->parent('pet');
     $trail->push('Create', route('pet.create'));
+});
+// Home > Pet > Edit Pet
+Breadcrumbs::for('edit_pet', function ($trail,$pet) {
+    $trail->parent('pet');
+    $trail->push('Edit', route('pet.edit',$pet));
+});
+// Home > Pet > Image
+Breadcrumbs::for('edit_image_pet', function ($trail,$pet) {
+    $trail->parent('edit_pet',$pet);
+    $trail->push('Image', route('pet.create'));
 });
 
 // Home > Role

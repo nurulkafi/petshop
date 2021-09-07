@@ -29,4 +29,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('role', ControllersRoleController::class);
 Route::resource('pet_category', PetCategoryController::class);
 Route::resource('pet', PetController::class);
-
+Route::get('pet/image/{id}/edit',[PetController::class,'edit_image']);
+Route::post('pet/image/{id}', [PetController::class, 'add_image']);
+Route::delete('pet/image/{id}', [PetController::class, 'destroy_image']);

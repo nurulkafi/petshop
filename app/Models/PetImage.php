@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pet extends Model
+class PetImage extends Model
 {
     use HasFactory;
-    protected $table = "pet";
+    protected $table = "pet_image";
     protected $guarded = [];
-    public function category(){
-        return $this->hasOne('App\Models\PetCategory','id', 'pet_category_id');
-    }
 }

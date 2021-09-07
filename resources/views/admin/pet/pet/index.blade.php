@@ -19,7 +19,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h5>Table Pet Category</h5>
+                        <h5>Table Pet</h5>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <a class="btn btn-primary float-start float-lg-end" href="{{ route('pet.create') }}">
@@ -36,6 +36,7 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -46,11 +47,12 @@
                         @foreach ($pet as $item)
                         <tr>
                             <td>1</td>
-                            <td>Moch nurul kafi</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->category->name }}</td>
                             <td>
-                                <button class="btn btn-info editData"  type="button" data-bs-toggle="modal" data-bs-target="#primary" data-id="{{ $item->id }}">
+                                <a class="btn btn-info" href="{{ route('pet.edit',$item->id) }}" >
                                     Edit
-                                </button>
+                                </a>
                                 <button class="btn btn-danger hapusData"  type="button" data-bs-toggle="modal" data-bs-target="#primary" data-id="{{ $item->id }}">
                                     Delete
                                 </button>
@@ -68,25 +70,23 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
         role="document">
         <div class="modal-content">
-            <div class="modal-header bg-primary" id="modalheader">
+            <div class="modal-header bg-danger" id="modalheader">
                 <h5 class="modal-title white" id="myModalLabel160">
-                    Add Category
+                    Delete Pet
                 </h5>
                 <button type="button" class="close"
                     data-bs-dismiss="modal" aria-label="Close">
                     <i data-feather="x"></i>
             </button>
         </div>
-        <form method="POST" action="{{ route('pet_category.store') }}" id="form">
+        <form method="POST" id="form">
         @csrf
+        @method('DELETE')
         <div id="method">
 
         </div>
         <div class="modal-body" id="modalform">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" name="name" id="name">
-            </div>
+            Apakah Yakin Akan Menghapus Data?
         </div>
         <div class="modal-footer">
             <button type="button" id="closeBTN"
@@ -97,7 +97,7 @@
             </button>
             <button type="submit" class="btn btn-primary ml-1" id="submit">
                 <i class="bx bx-check d-block d-sm-none"></i>
-                <span class="d-none d-sm-block">Submit</span>
+                <span class="d-none d-sm-block">Yes</span>
             </button>
         </div>
         </form>
@@ -124,32 +124,7 @@
         });
         $('.hapusData').on('click',function () {
             const id = $(this).data('id');
-            $('#modalform').empty();
-            $('#modalform').append('Apakah Yakin Akan Menghapus Data?');
-            $('#modalheader').attr('class','modal-header bg-danger');
-            $('#modalheader h5').empty();
-            $('#modalheader h5').append("Delete Pet Category");
-            $('#submit').attr('class','btn btn-danger ml-1');
-            $('#submit span').empty();
-            $('#submit span').append('Yes');
-            $('#method').append("<input type='hidden' name='_method' value='DELETE'>");
-            $('#form').attr('action','pet_category/'+id);
-        });
-        $('#closeBTN').on('click',function(){
-            let html = "<div class='form-group'>";
-            html +="<label for='name'>Name</label>";
-            html +="<input type='text' class='form-control' name='name' id='name'>"
-            html +="</div>";
-            $('#modalform').empty();
-            $('#modalform').append(html);
-            $('#modalheader').attr('class','modal-header bg-primary');
-            $('#modalheader h5').empty();
-            $('#modalheader h5').append("Add Pet Category");
-            $('#submit').attr('class','btn btn-primary ml-1');
-            $('#submit span').empty();
-            $('#submit span').append('Submit');
-            $('#form').attr('action','pet_category');
-            $('#method').empty();
+            $('#form').attr('action','pet/'+id);
         });
     });
 </script>
