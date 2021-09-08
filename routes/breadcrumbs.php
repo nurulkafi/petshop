@@ -11,6 +11,13 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 Breadcrumbs::for('home', function ($trail) {
     $trail->push('Home', route('home'));
 });
+
+//Home > company
+Breadcrumbs::for('company', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Company', route('company.index'));
+});
+
 //Home > PetCategory
 Breadcrumbs::for('pet_category', function ($trail) {
     $trail->parent('home');
@@ -36,6 +43,35 @@ Breadcrumbs::for('edit_pet', function ($trail,$pet) {
 Breadcrumbs::for('edit_image_pet', function ($trail,$pet) {
     $trail->parent('edit_pet',$pet);
     $trail->push('Image', route('pet.create'));
+});
+
+//Home > Product Category
+Breadcrumbs::for('product_category', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Product Category', route('product_category.index'));
+});
+
+// Home > Product
+Breadcrumbs::for('product', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Product', route('product.index'));
+});
+// Home > Product > Create
+Breadcrumbs::for('create_product', function ($trail) {
+    $trail->parent('product');
+    $trail->push('Create', route('product.create'));
+});
+
+// Home > Product > Edit Product
+Breadcrumbs::for('edit_product', function ($trail,$product) {
+    $trail->parent('product');
+    $trail->push('Edit', route('product.edit',$product));
+});
+
+// Home > Product > Image
+Breadcrumbs::for('edit_image_product', function ($trail,$product) {
+    $trail->parent('edit_product',$product);
+    $trail->push('Image', route('product.create'));
 });
 
 // Home > Role

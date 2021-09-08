@@ -19,9 +19,9 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{ route('company.index') }}" class='sidebar-link'>
                     <i class="bi bi-house-fill"></i>
-                    <span>Vendor</span>
+                    <span>Company</span>
                 </a>
             </li>
             <li class="sidebar-title">Master</li>
@@ -46,10 +46,10 @@
                 </a>
                 <ul class="submenu ">
                     <li class="submenu-item ">
-                        <a href="component-alert.html">Category</a>
+                        <a href="{{ route('product_category.index') }}">Category</a>
                     </li>
                     <li class="submenu-item ">
-                        <a href="component-badge.html">Product</a>
+                        <a href="{{ route('product.index') }}">Product</a>
                     </li>
                 </ul>
             </li>
@@ -93,9 +93,13 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); 
+                        document.getElementById('logout-form').submit();" data-toggle="tooltip" data-placement="top" title="Logout" class='sidebar-link'>
                     <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </a>
             </li>
         </ul>
