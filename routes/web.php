@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\RoleController as ControllersRoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\ShopController;
 use App\Models\Pet;
 
 /*
@@ -29,6 +30,7 @@ Route::get('/contact', [App\Http\Controllers\ShopController::class, 'contact']);
 Route::get('/product-detail/{id}', [App\Http\Controllers\ShopController::class, 'product_detail']);
 Route::get('/cart', [App\Http\Controllers\ShopController::class, 'cart']);
 Route::get('/checkout', [App\Http\Controllers\ShopController::class, 'checkout']);
+Route::get('products/category/pet/{id}',[ShopController::class,'pet_category']);
 //END OF SHOP PAGES//
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PetCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PetCategoryController extends Controller
 {
@@ -40,6 +41,7 @@ class PetCategoryController extends Controller
     {
         $saved = PetCategory::create([
             'name' => $request->name,
+            'slug' => Str::slug($request->name),
             'user_id' => Auth::user()->id
         ]);
         if ($saved) {
@@ -83,6 +85,7 @@ class PetCategoryController extends Controller
         $petCategory = PetCategory::findOrFail($id);
         $petCategory->name = $request->name;
         $petCategory->user_id = Auth::user()->id;
+        $petCategory->slug = Str::slug($request->name);
         $petCategory->save();
         return redirect()->back()->with('success', 'Data updated Successfully');
     }

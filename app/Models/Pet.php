@@ -13,4 +13,8 @@ class Pet extends Model
     public function category(){
         return $this->hasOne('App\Models\PetCategory','id', 'pet_category_id');
     }
+    public function image()
+    {
+        return $this->hasMany('App\Models\PetImage', 'pet_id');
+    }
 }

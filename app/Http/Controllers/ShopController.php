@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pet;
+use App\Models\PetCategory;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -21,12 +23,9 @@ class ShopController extends Controller
 
     public function product()
     {
-        $product = DB::table('product as a')
-                    ->leftjoin('product_image as b', 'a.id', '=', 'b.product_id')
-                    ->select('a.*', 'b.medium as product_image')
-                    ->where('a.status', 1)
-                    ->get();
-        return view('shop.product', compact('product'));
+        $product = Product::get();
+        $petCategory = PetCategory::get();
+        return view('shop.product', compact('product', 'petCategory'));
     }
 
     public function product_detail($id)
@@ -36,7 +35,7 @@ class ShopController extends Controller
         ->select('a.*', 'b.name as category')
         ->where('a.id', $id)
         ->first();
-        
+
         $product_image = ProductImage::where('product_id', $id)->get();
         return view('shop.product_detail', compact('product', 'product_image'));
     }
@@ -50,7 +49,7 @@ class ShopController extends Controller
     {
         return view('shop.checkout');
     }
-    
+
     public function about()
     {
         return view('shop.about');
@@ -125,5 +124,17 @@ class ShopController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function pet_category($id){
+        $cat = PetCategory::where('slug',$id)->first();
+        $product = Pet::where('pet_category_id',$cat->id)->get();
+        $petCategory = PetCategory::get();
+        return view('shop.product', compact('product', 'petCategory'));
+    }
+    public function product_category($id){
+        $cat = PetCategory::where('slug', $id)->first();
+        $product = Pet::where('pet_category_id', $cat->id)->get();
+        $petCategory = PetCategory::get();
+        return view('shop.product', compact('product', 'petCategory'));
     }
 }

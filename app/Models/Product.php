@@ -10,4 +10,7 @@ class Product extends Model
     use HasFactory;
     protected $table = "product";
     protected $guarded = [];
+    public function image(){
+       return $this->hasMany('App\Models\ProductImage','product_id');
+    }
 }
