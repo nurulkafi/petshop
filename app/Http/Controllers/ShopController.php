@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use App\Models\PetCategory;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use DB;
@@ -23,9 +24,10 @@ class ShopController extends Controller
 
     public function product()
     {
-        $product = Product::get();
+        $product = Product::paginate(10);
         $petCategory = PetCategory::get();
-        return view('shop.product', compact('product', 'petCategory'));
+        $productCategory = ProductCategory::get();
+        return view('shop.product', compact('product', 'petCategory', 'productCategory'));
     }
 
     public function product_detail($id)
@@ -125,16 +127,21 @@ class ShopController extends Controller
     {
         //
     }
-    public function pet_category($id){
-        $cat = PetCategory::where('slug',$id)->first();
-        $product = Pet::where('pet_category_id',$cat->id)->get();
-        $petCategory = PetCategory::get();
-        return view('shop.product', compact('product', 'petCategory'));
-    }
+
+    // public function pet_category($id){
+    //     $cat = PetCategory::where('slug',$id)->first();
+    //     $pet = Pet::where('pet_category_id',$cat->id)->get();
+    //     $petCategory = PetCategory::get();
+
+    //     $productCategory = ProductCategory::get();
+    //     return view('shop.product', compact('pet', 'petCategory', 'productCategory'));
+    // }
+
     public function product_category($id){
-        $cat = PetCategory::where('slug', $id)->first();
-        $product = Pet::where('pet_category_id', $cat->id)->get();
-        $petCategory = PetCategory::get();
-        return view('shop.product', compact('product', 'petCategory'));
+        $cat = ProductCategory::where('slug', $id)->first();
+        $product = Product::where('product_category_id', $cat->id)->paginate(10);
+        $productCategory = ProductCategory::get();
+
+        return view('shop.product', compact('product', 'productCategory')); 
     }
 }

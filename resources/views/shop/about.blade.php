@@ -31,7 +31,7 @@
             </div>
             
             <!-- IMG --> 
-            <img class="img-responsive margin-top-80 margin-bottom-80" src="images/about-img.jpg" alt="">
+            <img class="img-responsive margin-top-80 margin-bottom-80" src="{{asset('shop/images/about-img.jpg')}}" alt="">
             <div class="vision-text">
               <div class="col-lg-5">
                 <h5 class="text-left">our vision</h5>

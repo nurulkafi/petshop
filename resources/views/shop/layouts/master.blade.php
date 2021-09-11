@@ -74,26 +74,14 @@
                 </div>
               </li>
               <!-- USER BASKET -->
-              <li class="dropdown user-basket"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="icon-basket-loaded"></i> </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <div class="media-left">
-                      <div class="cart-img"> <a href="#"> <img class="media-object img-responsive" src="{{asset('shop/images/cart-img-1.jpg')}}" alt="..."> </a> </div>
-                    </div>
-                    <div class="media-body">
-                      <h6 class="media-heading">WOOD CHAIR</h6>
-                      <span class="price">129.00 USD</span> <span class="qty">QTY: 01</span> </div>
-                  </li>                
-                  <li>
-                    <h5 class="text-center">SUBTOTAL: 129.00 USD</h5>
-                  </li>
-                  <li class="margin-0">
-                    <div class="row">
-                      <div class="col-xs-6"> <a href="{{ url('/cart') }}" class="btn">VIEW CART</a></div>
-                      <div class="col-xs-6 "> <a href="{{ url('/checkout') }}" class="btn">CHECK OUT</a></div>
-                    </div>
-                  </li>
-                </ul>
+              <li class="dropdown user-basket"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="icon-basket-loaded cartNumbers"></i></a>
+                
+              <ul class="dropdown-menu">
+                <div class="products">
+                  
+                </div>
+              </ul>
+                
               </li>
               <!-- USER INFO -->
               <li class="dropdown user-acc"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" ><i class="icon-user"></i> </a>
@@ -222,6 +210,10 @@
 <script type="text/javascript" src="{{asset('shop/rs-plugin/js/jquery.tp.t.min.js')}}"></script> 
 <script type="text/javascript" src="{{asset('shop/rs-plugin/js/jquery.tp.min.js')}}"></script> 
 <script src="{{asset('shop/js/main.js')}}"></script> 
-
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+  window.addEventListener('wheel', { passive: false });
+</script>
 </body>
 </html>

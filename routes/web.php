@@ -31,6 +31,7 @@ Route::get('/product-detail/{id}', [App\Http\Controllers\ShopController::class, 
 Route::get('/cart', [App\Http\Controllers\ShopController::class, 'cart']);
 Route::get('/checkout', [App\Http\Controllers\ShopController::class, 'checkout']);
 Route::get('products/category/pet/{id}',[ShopController::class,'pet_category']);
+Route::get('products/category/pet-product/{id}',[ShopController::class,'product_category']);
 //END OF SHOP PAGES//
 
 

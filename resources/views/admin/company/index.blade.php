@@ -39,6 +39,7 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
+            @if(count($company) > 0)
             <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <p class="my-2">
                     <div class="row">
@@ -89,6 +90,55 @@
                     </div>
                 </p>
             </div>
+            @else
+            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <p class="my-2">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="foto">                               
+                                <p style="text-align: center;position: relative;top: 50px">
+                                    <img id="preview-image-before-upload" src="{{ asset('images/no-image.jpg') }}" alt="preview image" style="border-radius: 50%;width: 150px;">
+                                </p>
+                                <p style="text-align: center;position: relative;top: 50px;font-weight: bold">
+                                    Company Name
+                                </p>
+                                <p style="text-align: center;position: relative;top: 30px">
+                                    <small>Email</small>
+                                </p>
+                                <p style="text-align: center;position: relative;top: 10px">
+                                    <small>Address</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>Name</td>
+                                    <td>:</td>
+                                    <td>Company Name</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td>Email</td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td>:</td>
+                                    <td>Address</td>
+                                </tr>
+                                <tr>
+                                    <td>Contact Number</td>
+                                    <td>:</td>
+                                    <td>Contact Number</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </p>
+            </div>
+            @endif
+
             <div class="tab-pane fade" id="form" role="tabpanel" aria-labelledby="form-tab">
                 <p class="my-2">
                     @if (count($company) > 0)
