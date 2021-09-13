@@ -68,6 +68,16 @@ Breadcrumbs::for('service', function ($trail) {
     $trail->parent('home');
     $trail->push('Service', route('service.index'));
 });
+// Home > Service > Create
+Breadcrumbs::for('service_create', function ($trail) {
+    $trail->parent('service');
+    $trail->push('Create', route('service.create'));
+});
+// Home > Service > Edit
+Breadcrumbs::for('service_edit', function ($trail) {
+    $trail->parent('service');
+    $trail->push('Edit', route('service.create'));
+});
 
 // Home > Service Transaction
 Breadcrumbs::for('service_transaction', function ($trail) {

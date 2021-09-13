@@ -49,6 +49,7 @@ Route::resource('service_transaction', ServiceTransactionController::class);
 Route::get('service_transaction/{id}/process', [ServiceTransactionController::class, 'process']);
 Route::get('service_transaction/{id}/finish', [ServiceTransactionController::class, 'finish']);
 Route::get('service_transaction/{id}/payment', [ServiceTransactionController::class, 'payment']);
+Route::get('service_transaction/{id}/print', [ServiceTransactionController::class, 'print']);
 Route::get('pet/image/{id}/edit',[PetController::class,'edit_image']);
 Route::post('pet/image/{id}', [PetController::class, 'add_image']);
 Route::delete('pet/image/{id}', [PetController::class, 'destroy_image']);
