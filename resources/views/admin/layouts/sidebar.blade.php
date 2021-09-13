@@ -53,15 +53,15 @@
                     </li>
                 </ul>
             </li>
-            <li class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item @yield('service')">
+                <a href="{{ route('service.index') }}" class='sidebar-link'>
                     <i class="bi bi-card-checklist"></i>
                     <span>Service</span>
                 </a>
             </li>
             <li class="sidebar-title">Transaction</li>
-            <li class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item @yield('service_transaction')">
+                <a href="{{ route('service_transaction.index') }}" class='sidebar-link'>
                     <i class="bi bi-card-checklist"></i>
                     <span>Service</span>
                 </a>
@@ -93,7 +93,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); 
+                <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();" data-toggle="tooltip" data-placement="top" title="Logout" class='sidebar-link'>
                     <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span>

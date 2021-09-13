@@ -56,10 +56,44 @@ Breadcrumbs::for('product', function ($trail) {
     $trail->parent('home');
     $trail->push('Product', route('product.index'));
 });
+
 // Home > Product > Create
 Breadcrumbs::for('create_product', function ($trail) {
     $trail->parent('product');
     $trail->push('Create', route('product.create'));
+});
+
+// Home > Service
+Breadcrumbs::for('service', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Service', route('service.index'));
+});
+// Home > Service > Create
+Breadcrumbs::for('service_create', function ($trail) {
+    $trail->parent('service');
+    $trail->push('Create', route('service.create'));
+});
+// Home > Service > Edit
+Breadcrumbs::for('service_edit', function ($trail) {
+    $trail->parent('service');
+    $trail->push('Edit', route('service.create'));
+});
+
+// Home > Service Transaction
+Breadcrumbs::for('service_transaction', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Service Transaction', route('service_transaction.index'));
+});
+
+// Home > Service Transaction > Create
+Breadcrumbs::for('service_transaction_create', function ($trail) {
+    $trail->parent('service_transaction');
+    $trail->push('Create', route('service_transaction.create'));
+});
+// Home > Service Transaction > Show
+Breadcrumbs::for('service_transaction_show', function ($trail) {
+    $trail->parent('service_transaction');
+    $trail->push('Show', route('service_transaction.create'));
 });
 
 // Home > Product > Edit Product
