@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/toastify/toastify.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/vendors/choices.js/choices.min.css') }}" />
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <style>
