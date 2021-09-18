@@ -9,6 +9,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class ShopController extends Controller
 {
@@ -127,21 +128,50 @@ class ShopController extends Controller
     {
         //
     }
-
-    // public function pet_category($id){
-    //     $cat = PetCategory::where('slug',$id)->first();
-    //     $pet = Pet::where('pet_category_id',$cat->id)->get();
-    //     $petCategory = PetCategory::get();
-
-    //     $productCategory = ProductCategory::get();
-    //     return view('shop.product', compact('pet', 'petCategory', 'productCategory'));
-    // }
-
     public function product_category($id){
         $cat = ProductCategory::where('slug', $id)->first();
         $product = Product::where('product_category_id', $cat->id)->paginate(10);
         $productCategory = ProductCategory::get();
+        return view('shop.product', compact('product', 'productCategory'));
+    }
+    //PET
+    public function pet(){
+        $pet = Pet::paginate(10);
+        $petcategory = PetCategory::get();
+        return view('shop.pet',compact('pet','petcategory'));
+    }
+    public function pet_detail($slug){
+        $pet = Pet::where('slug',$slug)->first();
+        $petsame = Pet::where('pet_category_id',$pet->pet_category_id)
+        ->where('name','!=',$pet->name)
+        ->paginate(5);
+        return view('shop.pet_detail',compact('pet', 'petsame'));
+    }
+    public function pet_category($slug){
+        $cat = PetCategory::where('slug',$slug)->first();
+        $pet = Pet::where('pet_category_id',$cat->id)->paginate(10);
+        $petcategory = PetCategory::get();
+        return view('shop.pet', compact('pet', 'petcategory'));
+    }
+    public function pet_sort_by_price($id){
+        $pet = Pet::orderBy('price',$id)->paginate(10);
+        $petcategory = PetCategory::get();
+        return view('shop.pet', compact('pet', 'petcategory'));
+    }
 
-        return view('shop.product', compact('product', 'productCategory')); 
+    //SEARCH
+    public function search(Request $request){
+        $search = $request->search;
+        return redirect('search/'.$search);
+    }
+    public function result_search($name)
+    {
+        $pet = Pet::where('name','like','%'.$name.'%')
+                ->paginate(5);
+        $product = Product::where('name', 'like', '%' . $name . '%')
+                ->paginate(5);
+        $petcategory = PetCategory::get();
+        $productcategory = ProductCategory::get();
+        return view('shop.result_search',compact('pet','product','petcategory', 'productcategory'));
     }
 }

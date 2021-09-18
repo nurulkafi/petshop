@@ -53,6 +53,10 @@
                                 <textarea type="text" class="form-control round" name="description"  id="description"></textarea>
                             </div>
                             <div class="form-group">
+                                <label for="">Price</label>
+                                <input type="text" class="form-control" name="price">
+                            </div>
+                            <div class="form-group">
                                 <label for="">Weight</label>
                                 <input type="text" class="form-control" name="weight">
                             </div>
