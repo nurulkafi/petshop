@@ -1,4 +1,5 @@
 @extends('admin.layouts.master')
+@section('role','active')
 @section('content')
 <div class="page-heading">
     <div class="page-title">
