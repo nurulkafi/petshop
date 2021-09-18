@@ -312,6 +312,7 @@
 <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
 <!-- filepond -->
 <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<script src="{{ asset('shop/js/cart.js') }}"></script>
 <script>
 $(document).ready(function (e) {
  

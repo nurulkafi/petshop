@@ -1,10 +1,5 @@
 @extends('shop.layouts.master')
 @section('content')
-<style>
-  .noData {
-    text-align: center;
-  }
-</style>
   <!--======= SUB BANNER =========-->
   <section class="sub-bnr" data-stellar-background-ratio="0.5">
     <div class="position-center-center">
@@ -110,7 +105,7 @@
                           <a href="{{asset('storage/'.$p->image->first()->extra_large)}}" data-lighter>
                             <i class="icon-magnifier"></i>
                           </a> 
-                          <a href="#." class="add-cart cart{{ $i++ }}">
+                          <a href="#." class="add-cart">
                             <i class="icon-basket"></i>
                           </a> 
                           <a href="#." >
@@ -126,7 +121,12 @@
                     <p>{{ $p->detail }}</p>
                   </div>
                   <!-- Price -->
-                  <span class="price"><small>Rp.</small>{{ number_format($p->retail_price) }}</span> </div>
+                  <span class="price"><small>Rp.</small>{{ number_format($p->retail_price) }}
+                  <span style="display: none;">{{ $p->retail_price }}</span>
+                  </span> 
+                  
+                </div>
+                  
               </div>
               @empty
               <p>No data available</p>
@@ -147,44 +147,38 @@
       </div>
     </section>
 </div>
-
-<!-- ADD TO CART LOCAL STORAGE -->
 <script>
+// <!-- ADD TO CART LOCAL STORAGE -->
+
   let carts = document.querySelectorAll('.add-cart');
 
+    // console.log(products);
   let products = [
-    @foreach($product as $item)
-      {
-        id: {{ $item->id }},
-        name: '{{ $item->name }}',
-        category: {{ $item->product_category_id }},
-        price: {{ $item->retail_price }},
-        image: "{{ $item->image->first()->small }}",
-        inCart:0
-      },
-    @endforeach
-  ];
-  // console.log(products);
+      @foreach($product as $item)
+        {
+          id: {{ $item->id }},
+          name: '{{ $item->name }}',
+          category: {{ $item->product_category_id }},
+          price: {{ $item->retail_price }},
+          image: "{{ $item->image->first()->small }}",
+          detail: "{{ $item->detail }}",
+          stock: {{ $item->stock }},
+          totalPrice: parseInt({{ $item->retail_price }}),
+          inCart:0
+        },
+      @endforeach
+    ];
 
   for (let i=0; i < carts.length; i++) {    
-    carts[i].addEventListener('click', (e) => {
-      e.preventDefault();
-      cartNumbers(products[i]);
-      totalCost(products[i])
+    carts[i].addEventListener('click', () => {
+      setItems(products[i]);
+      // cartNumbers(products[i]);
+      // totalCost(products[i])
     })
   }
 
   function maskRupiah(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
-  //MENAMPILKAN JUMLAH BARANG SAAT WEB DI LOAD DARI LOCAL STORAGE
-  function onLoadCartNumbers() {
-    let productNumbers = localStorage.getItem('cartNumbers');
-
-    if(productNumbers) {
-      document.querySelector('.user-basket .cartNumbers').textContent = productNumbers;
-    }
   }
 
   //MENYIMPAN VALUE/QTY DATA YANG DIPILIH KE LOCAL STORAGE
@@ -200,10 +194,7 @@
     } else {
       localStorage.setItem('cartNumbers', 1);
       document.querySelector('.user-basket .cartNumbers').textContent = 1;
-    }  
-
-    setItems(product);    
-    
+    }     
   }
 
   //MENIYMPAN DATA PRODUCT KE LOCAL STORAGE productsInCart
@@ -212,101 +203,42 @@
     cartItems = JSON.parse(cartItems);
     
     if(cartItems != null) {
-      if(cartItems[product.category] == undefined) {
+      if(cartItems[product.id] == undefined) {
         cartItems = {
           ...cartItems,
-          [product.category]: product
+          [product.id]: product
         }
       }
-      cartItems[product.category].inCart += 1;
+      cartItems[product.id].inCart += 1;
+      cartItems[product.id].totalPrice = cartItems[product.id].price * cartItems[product.id].inCart;
     } else {
       product.inCart = 1;
       cartItems = {
-        [product.category]: product
+        [product.id]: product
       }
     }
-   
-    
+       
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
-    
+    // alert('['+cartItems[product.id].name.toUpperCase()+']\ntelah masuk keranjang!');
+    cartNumberDisplay()
+    displayCart();
   }
 
-  //MENYIMPAN TOTAL KE LOCAL STORAGE totalCost
-  function totalCost(product) {
-    // console.log("The product price is", product.price);
-    let cartCost = localStorage.getItem("totalCost");   
-    
-    if(cartCost != null) {
-        cartCost = parseInt(cartCost);
-        localStorage.setItem('totalCost', cartCost + product.price);
-        displayCart();
-    } else {
-        localStorage.setItem("totalCost", product.price);
-        displayCart();
-    }     
-  }
+  function cartNumberDisplay(){
+      let cartNumbers = 0;
+      let cartItem = JSON.parse(localStorage.getItem('productsInCart'))
 
-  //MENAMPILKAN DATA PRODUK DI CART
-  function displayCart() {
-    let cartItems = localStorage.getItem('productsInCart');
-    let cartCost = localStorage.getItem('totalCost');
-    let cartNumbers = localStorage.getItem('cartNumbers');
-    // cartNumbers = parseInt(cartNumbers);
-
-    let productContainer = document.querySelector(".products");
-    cartItems = JSON.parse(cartItems);
-
-    // console.log(cartItems);
-    if(cartItems && productContainer) {
-        productContainer.innerHTML = '';
-        Object.values(cartItems).map(item => {
-          productContainer.innerHTML += `           
-            <li>                        
-              <div class="media-left">            
-                <div class="cart-img"> 
-                  <a href="#"> 
-                    <img class="media-object img-responsive" src="{{asset('storage/${item.image}')}}" alt="..."> 
-                  </a> 
-                </div>
-
-              </div>
-              <div class="media-body">
-                <h6 class="media-heading">${item.name}</h6>
-                <span class="price">Rp. ${maskRupiah(item.price)}</span> 
-                <span class="qty">QTY: ${item.inCart}</span> 
-                <span class="total">Total: Rp. ${maskRupiah(item.inCart * item.price)}</span> 
-              </div>
-            </li>                         
-          `
+      if(cartItem) {
+        cartItem = Object.values(cartItem);
+        
+        cartItem.forEach(item => {
+            cartNumbers = item.inCart += cartNumbers;
         });
-
-         productContainer.innerHTML += `
-          <li>
-            <h5 class="text-center">SUBTOTAL: Rp. ${maskRupiah(cartCost)}</h5>
-          </li>
-          <li class="margin-0">
-            <div class="row">
-              <div class="col-xs-6"> <a href="{{ url('/cart') }}" class="btn">VIEW CART</a></div>
-              <div class="col-xs-6 "> <a href="{{ url('/checkout') }}" class="btn">CHECK OUT</a></div>
-            </div>
-          </li>
-        `
-    }  
-
-    if (cartNumbers == null) {
-      productContainer.innerHTML += `
-        <div class="noData">
-          <img src="{{ asset('shop/images/emptyCart.svg') }}" style="display:block;margin-left:auto;margin:right:auto;width:100%">
-          <h6>Whoops, your cart is empty!</h6>
-          <small>
-            Add something to make your pet happy :)
-          </small>
-        </div>
-      `;
-    } 
+        // console.log(cartNumbers);
+        document.querySelector('.user-basket .cartNumbers').textContent = cartNumbers;
+      }      
   }
 
-  onLoadCartNumbers();
-  displayCart();
+  cartNumberDisplay()
 </script>
 @endsection

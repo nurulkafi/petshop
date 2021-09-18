@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="M_Adnan">
-<title>PAVSHOP - Multipurpose eCommerce HTML5 Template</title>
+<title>=> INI WEB YA ? <=</title>
 
 <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 <link rel="stylesheet" type="text/css" href="{{asset('shop/rs-plugin/css/settings.css')}}" media="screen" />
@@ -33,6 +33,11 @@
 <![endif]-->
 
 </head>
+<style>
+  .noData {
+    text-align: center;
+  }
+</style>
 <body>
 <!-- header -->
 <header>
@@ -212,8 +217,112 @@
 <script src="{{asset('shop/js/main.js')}}"></script> 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 <script>
   window.addEventListener('wheel', { passive: false });
-</script>
+
+  function maskRupiah(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  //MENAMPILKAN DATA PRODUK DI CART
+  function displayCart() {
+    let cartItems = JSON.parse(localStorage.getItem('productsInCart'));
+    let cartQty = 0;
+    let subtotal = 0;
+
+    let productContainer = document.querySelector(".products");
+    
+    //CEK LOCAL STORAGE KOSONG / NULL
+    if(cartItems == null) {
+        productContainer.innerHTML += `
+          <div class="noData">
+            <img src="{{ asset('shop/images/emptyCart.svg') }}" style="display:block;margin-left:auto;margin:right:auto;width:100%">
+            <h6>Whoops, your cart is empty!</h6>
+            <small>
+              Add something to make your pet happy :)
+            </small>
+          </div>
+        `;
+      }
+
+    // console.log(cartItems);
+    if(cartItems && productContainer) {
+        cartItems = Object.values(cartItems);
+        
+        productContainer.innerHTML = '';
+
+        
+        cartItems.map(item => {            
+          subtotal = item.totalPrice += subtotal;
+
+          cartQty = item.inCart;
+          productContainer.innerHTML += `           
+            <li>                        
+              <div class="media-left">            
+                <div class="cart-img"> 
+                  <a href="#"> 
+                    <img class="media-object img-responsive" src="{{asset('storage/${item.image}')}}" alt="..."> 
+                  </a> 
+                </div>
+
+              </div>
+              <div class="media-body">
+                <h6 class="media-heading">${item.name}</h6>
+                <span class="price">Rp. ${maskRupiah(item.price)}</span> 
+                <span class="qty">QTY: ${item.inCart}</span> 
+                <span class="total">Total: Rp. ${maskRupiah(item.inCart * item.price)}</span> 
+              </div>
+            </li>                         
+          `
+        }); 
+
+        if(cartItems.length == 0) {
+          productContainer.innerHTML += `
+            <div class="noData">
+              <img src="{{ asset('shop/images/emptyCart.svg') }}" style="display:block;margin-left:auto;margin:right:auto;width:100%">
+              <h6>Whoops, your cart is empty!</h6>
+              <small>
+                Add something to make your pet happy :)
+              </small>
+            </div>
+          `;
+        } else {
+            productContainer.innerHTML += `
+            <li>
+              <h5 class="text-center">SUBTOTAL: Rp. ${maskRupiah(subtotal)}</h5>
+            </li>
+            <li class="margin-0">
+              <div class="row">
+                <div class="col-xs-6"> <a href="{{ url('/cart') }}" class="btn">VIEW CART</a></div>
+                <div class="col-xs-6 "> <a href="{{ url('/checkout') }}" class="btn">CHECK OUT</a></div>
+              </div>
+            </li>
+          `
+        }   
+        
+    }      
+  } 
+
+  // onLoadCartNumbers();
+  function cartNumberDisplay(){
+      let cartNumbers = 0;
+      let cartItem = JSON.parse(localStorage.getItem('productsInCart'))
+
+      if(cartItem) {
+        cartItem = Object.values(cartItem);
+        cartItem.forEach(item => {
+            cartNumbers = item.inCart += cartNumbers;
+        });
+        // console.log(cartNumbers);
+        document.querySelector('.user-basket .cartNumbers').textContent = cartNumbers;
+      } else {
+        document.querySelector('.user-basket .cartNumbers').textContent = cartNumbers;
+      }  
+  }
+
+  cartNumberDisplay()
+  displayCart();
+ </script>
 </body>
 </html>
