@@ -28,12 +28,20 @@ use App\Models\ServiceTransaction;
 //SHOP PAGES
 Route::get('/', [App\Http\Controllers\ShopController::class, 'index']);
 Route::get('/products', [App\Http\Controllers\ShopController::class, 'product']);
+
+Route::get('/pets',[ShopController::class,'pet']);
+Route::get('pet/detail/{slug}',[ShopController::class,'pet_detail']);
+Route::get('pet/category/{slug}',[ShopController::class,'pet_category']);
+Route::get('pets/price/{id}', [ShopController::class, 'pet_sort_by_price']);
+
+
+Route::post('/search', [ShopController::class, 'search']);
+Route::get('/search/{name}', [ShopController::class, 'result_search']);
 Route::get('/about', [App\Http\Controllers\ShopController::class, 'about']);
 Route::get('/contact', [App\Http\Controllers\ShopController::class, 'contact']);
 Route::get('/product-detail/{id}', [App\Http\Controllers\ShopController::class, 'product_detail']);
 Route::get('/cart', [App\Http\Controllers\ShopController::class, 'cart']);
 Route::get('/checkout', [App\Http\Controllers\ShopController::class, 'checkout']);
-Route::get('products/category/pet/{id}',[ShopController::class,'pet_category']);
 Route::get('products/category/pet-product/{id}',[ShopController::class,'product_category']);
 //END OF SHOP PAGES//
 

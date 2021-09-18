@@ -37,25 +37,26 @@
 <!-- header -->
 <header>
     <div class="sticky">
-      <div class="container"> 
-        
+      <div class="container">
+
         <!-- Logo -->
         <div class="logo"> <a href="{{url('/')}}"><img class="img-responsive" src="{{asset('shop/images/logo.png')}}" alt="" ></a> </div>
         <nav class="navbar ownmenu">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-open-btn" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"><i class="fa fa-navicon"></i></span> </button>
           </div>
-          
+
           <!-- NAV -->
           <div class="collapse navbar-collapse" id="nav-open-btn">
             <ul class="nav">
               <li class="active"> <a href="{{url('/')}}">Home </a> </li>
               <li> <a href="{{ url('/products') }}">Products </a> </li>
-              <li> <a href="{{ url('/about') }}">About </a> </li>            
+              <li> <a href="{{ url('/pets') }}">Pets </a> </li>
+              <li> <a href="{{ url('/about') }}">About </a> </li>
               <li> <a href="{{ url('/contact') }}"> contact</a> </li>
             </ul>
           </div>
-          
+
           <!-- Nav Right -->
           <div class="nav-right">
             <ul class="navbar-right">
@@ -65,8 +66,9 @@
                   <div class="search-overlay"></div>
                   <div class="position-center-center">
                     <div class="search">
-                      <form>
-                        <input type="search" placeholder="Search Shop">
+                      <form method="POST" action="{{ url('search') }}">
+                        @csrf
+                        <input type="search" placeholder="Search Shop" name="search">
                         <button type="submit"><i class="icon-check"></i></button>
                       </form>
                     </div>
@@ -75,13 +77,13 @@
               </li>
               <!-- USER BASKET -->
               <li class="dropdown user-basket"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="icon-basket-loaded cartNumbers"></i></a>
-                
+
               <ul class="dropdown-menu">
                 <div class="products">
-                  
+
                 </div>
               </ul>
-                
+
               </li>
               <!-- USER INFO -->
               <li class="dropdown user-acc"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" ><i class="icon-user"></i> </a>
@@ -103,15 +105,15 @@
 @yield('content')
 <!-- About -->
 <section class="small-about padding-top-150 padding-bottom-150">
-      <div class="container"> 
-        
+      <div class="container">
+
         <!-- Main Heading -->
         <div class="heading text-center">
           <h4>about PAVSHOP</h4>
           <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsumien lacus, eu posuere odio luctus non. Nulla lacinia,
             eros vel fermentum consectetur, risus purus tempc, et iaculis odio dolor in ex. </p>
         </div>
-        
+
         <!-- Social Icons -->
         <ul class="social_icons">
           <li><a href="#."><i class="icon-social-facebook"></i></a></li>
@@ -122,7 +124,7 @@
         </ul>
       </div>
     </section>
-    
+
     <!-- News Letter -->
     <section class="news-letter padding-top-150 padding-bottom-150">
       <div class="container">
@@ -136,11 +138,11 @@
       </div>
     </section>
   </div>
-  
+
   <!--======= FOOTER =========-->
   <footer>
-    <div class="container"> 
-      
+    <div class="container">
+
       <!-- ABOUT Location -->
       <div class="col-md-3">
         <div class="about-footer"> <img class="margin-bottom-30" src="{{asset('shop/images/logo-footer.png')}}" alt="" >
@@ -150,7 +152,7 @@
           <p><i class="icon-envelope"></i> info@PAVSHOP.com</p>
         </div>
       </div>
-      
+
       <!-- HELPFUL LINKS -->
       <div class="col-md-3">
         <h6>HELPFUL LINKS</h6>
@@ -163,7 +165,7 @@
           <li><a href="#."> Press Kit </a></li>
         </ul>
       </div>
-      
+
       <!-- SHOP -->
       <div class="col-md-3">
         <h6>SHOP</h6>
@@ -176,7 +178,7 @@
           <li><a href="#."> Retailer</a></li>
         </ul>
       </div>
-      
+
       <!-- MY ACCOUNT -->
       <div class="col-md-3">
         <h6>MY ACCOUNT</h6>
@@ -188,9 +190,9 @@
           <li><a href="#."> Checkout</a></li>
         </ul>
       </div>
-      
+
       <!-- Rights -->
-      
+
       <div class="rights">
         <p>©  2017 PAVSHOP All right reserved. </p>
         <div class="scroll"> <a href="#wrap" class="go-up"><i class="lnr lnr-arrow-up"></i></a> </div>
@@ -198,18 +200,18 @@
     </div>
   </footer>
 
-<!--======= RIGHTS =========--> 
-  
-<script src="{{asset('shop/js/jquery-1.11.3.min.js')}}"></script> 
-<script src="{{asset('shop/js/bootstrap.min.js')}}"></script> 
-<script src="{{asset('shop/js/own-menu.js')}}"></script> 
-<script src="{{asset('shop/js/jquery.lighter.js')}}"></script> 
-<script src="{{asset('shop/js/owl.carousel.min.js')}}"></script> 
+<!--======= RIGHTS =========-->
+
+<script src="{{asset('shop/js/jquery-1.11.3.min.js')}}"></script>
+<script src="{{asset('shop/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('shop/js/own-menu.js')}}"></script>
+<script src="{{asset('shop/js/jquery.lighter.js')}}"></script>
+<script src="{{asset('shop/js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('shop/js/modernizr.js')}}"></script>
-<!-- SLIDER REVOLUTION 4.x SCRIPTS  --> 
-<script type="text/javascript" src="{{asset('shop/rs-plugin/js/jquery.tp.t.min.js')}}"></script> 
-<script type="text/javascript" src="{{asset('shop/rs-plugin/js/jquery.tp.min.js')}}"></script> 
-<script src="{{asset('shop/js/main.js')}}"></script> 
+<!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+<script type="text/javascript" src="{{asset('shop/rs-plugin/js/jquery.tp.t.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('shop/rs-plugin/js/jquery.tp.min.js')}}"></script>
+<script src="{{asset('shop/js/main.js')}}"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script>

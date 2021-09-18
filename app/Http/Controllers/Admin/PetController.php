@@ -87,13 +87,15 @@ class PetController extends Controller
        $weight = $request->weight;
        $stock = $request->stock;
        $status = $request->status;
-
+       $price = $request->price;
        $saved = Pet::create([
             'vendor_id' => 1,
             'user_id' => Auth::user()->id,
             'pet_category_id' => $request->category_id,
             'name' => $name,
+            'slug' => Str::slug($name),
             'description' => $description,
+            'price' => $price,
             'weight' => $weight,
             'stock' => $stock,
             'status' => $status,
@@ -149,12 +151,15 @@ class PetController extends Controller
         $weight = $request->weight;
         $stock = $request->stock;
         $status = $request->status;
+        $price = $request->price;
         $saved = Pet::where('id',$id)->update([
             'vendor_id' => 1,
             'user_id' => Auth::user()->id,
             'pet_category_id' => $request->category_id,
             'name' => $name,
+            'slug' => Str::slug($name),
             'description' => $description,
+            'price' => $price,
             'weight' => $weight,
             'stock' => $stock,
             'status' => $status,

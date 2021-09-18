@@ -17,4 +17,5 @@ class Pet extends Model
     {
         return $this->hasMany('App\Models\PetImage', 'pet_id');
     }
+
 }

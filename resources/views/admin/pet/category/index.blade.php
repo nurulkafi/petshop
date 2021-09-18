@@ -37,6 +37,7 @@
                         <tr>
                             <th>No</th>
                             <th>Name</th>
+                            <th>Slug</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,6 +49,7 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $item->name }}</td>
+                            <td>{{ $item->slug }}</td>
                             <td>
                                 <button class="btn btn-info editData"  type="button" data-bs-toggle="modal" data-bs-target="#primary" data-id="{{ $item->id }}">
                                     Edit
