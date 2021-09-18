@@ -124,6 +124,22 @@ Breadcrumbs::for('edit_role', function ($trail) {
     $trail->push('Edit Role', route('role.create'));
 });
 
+// Home > Users
+Breadcrumbs::for('user', function ($trail) {
+    $trail->parent('home');
+    $trail->push('User', route('user.index'));
+});
+// Home > Users > Create
+Breadcrumbs::for('create_user', function ($trail) {
+    $trail->parent('user');
+    $trail->push('Create User', route('user.create'));
+});
+// Home > Users > Edit
+Breadcrumbs::for('edit_user', function ($trail) {
+    $trail->parent('user');
+    $trail->push('Edit User', route('user.create'));
+});
+
 
 
 ?>

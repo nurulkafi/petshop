@@ -73,8 +73,8 @@
                 </a>
             </li>
             <li class="sidebar-title">User &amp; Role</li>
-            <li class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
+            <li class="sidebar-item @yield('user')">
+                <a href="{{ route('user.index') }}" class='sidebar-link'>
                     <i class="bi bi-people-fill"></i>
                     <span>User</span>
                 </a>
