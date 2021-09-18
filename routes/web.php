@@ -50,7 +50,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('company', CompanyController::class);
-Route::resource('role', ControllersRoleController::class);
+Route::resource('role', RoleController::class);
 Route::resource('pet_category', PetCategoryController::class);
 Route::resource('pet', PetController::class);
 Route::resource('service', ServiceController::class);
