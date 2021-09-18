@@ -117,12 +117,18 @@
                   </div>
                   @endif
                   <!-- Item Name -->
-                  <div class="item-name"> <a href="{{url('/product-detail/'.$p->id)}}">{{ $p->name }}</a>
+                  <div class="item-name"> 
+                    <a href="{{url('/product-detail/'.$p->id)}}">{{ $p->name }}</a>
                     <p>{{ $p->detail }}</p>
+
                   </div>
+
                   <!-- Price -->
-                  <span class="price"><small>Rp.</small>{{ number_format($p->retail_price) }}
+                  
+                  <span class="price"><small>Rp.</small>{{ number_format($p->retail_price) }}</span>
                   <span style="display: none;">{{ $p->retail_price }}</span>
+                  <span style="float: right;background: yellow;color:black;padding: 5px;font-weight: bold;font-size: 10px">Stock: {{ number_format($p->stock) }}</span>
+
                   </span> 
                   
                 </div>
