@@ -8,7 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'order_id',
+        'number',
+        'amount',
+        'method',
+        'status',
+        'token',
+        'payloads',
+        'payment_type',
+        'va_number',
+        'vendor_name',
+        'biller_code',
+        'bill_key',
+    ];
     public const PAYMENT_CHANNELS = [
         'credit_card', 'mandiri_clickpay', 'cimb_clicks',
         'bca_klikbca', 'bca_klikpay', 'bri_epay', 'echannel', 'permata_va',
@@ -26,7 +39,7 @@ class Payment extends Model
     public const EXPIRE = 'expire';
     public const CANCEL = 'cancel';
     public const PAYMENTCODE = 'PAY';
-    
+
     private static function _isOrderCodeExists($orderCode)
     {
         return self::where('number', '=', $orderCode)->exists();
