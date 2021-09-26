@@ -1,11 +1,13 @@
 <?php
-
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\PetCategory;
 use App\Http\Controllers\Admin\PetCategoryController;
 use App\Http\Controllers\Admin\PetController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController as ControllersRoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
@@ -40,12 +42,26 @@ Route::post('/search', [ShopController::class, 'search']);
 Route::get('/search/{name}', [ShopController::class, 'result_search']);
 Route::get('/about', [App\Http\Controllers\ShopController::class, 'about']);
 Route::get('/contact', [App\Http\Controllers\ShopController::class, 'contact']);
-Route::get('/product-detail/{id}', [App\Http\Controllers\ShopController::class, 'product_detail']);
+Route::get('/product-detail/{slug}', [App\Http\Controllers\ShopController::class, 'product_detail']);
 Route::get('/cart', [App\Http\Controllers\ShopController::class, 'cart']);
 Route::get('/checkout', [App\Http\Controllers\ShopController::class, 'checkout']);
-Route::get('products/category/pet-product/{id}',[ShopController::class,'product_category']);
+Route::get('/product/category/{slug}',[ShopController::class,'product_category']);
+
+//getCity
+Route::get('province/search/{id}', [Controller::class, 'getCity']);
+Route::get('cekongkir/{cekOngkir}/berat/{berat}', [Controller::class, 'cekOngkir']);
+
+//Checkout
+Route::post('/docheckout', [OrderController::class, 'store']);
+
+Route::get('/order/confirm/{id}', [OrderController::class, 'confirm']);
 //END OF SHOP PAGES//
 
+//notif midtrans
+Route::post('/payment/notification', [PaymentController::class, 'notification']);
+Route::get('completed', [PaymentController::class, 'completed']);
+Route::get('failed', [PaymentController::class, 'failed']);
+Route::get('unfinish', [PaymentController::class, 'unfinish']);
 
 Auth::routes();
 

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="M_Adnan">
-<title>=> INI WEB YA ? <=</title>
+<title>PETSHOP ONLINE STORE</title>
 
 <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
 <link rel="stylesheet" type="text/css" href="{{asset('shop/rs-plugin/css/settings.css')}}" media="screen" />

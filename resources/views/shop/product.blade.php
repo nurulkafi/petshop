@@ -118,8 +118,8 @@
                   @endif
                   <!-- Item Name -->
                   <div class="item-name"> 
-                    <a href="{{url('/product-detail/'.$p->id)}}">{{ $p->name }}</a>
-                    <p>{{ $p->detail }}</p>
+                    <a href="{{url('/product-detail/'.$p->slug)}}">{{ $p->name }}</a>
+                    <p>{!! $p->detail !!}</p>
 
                   </div>
 

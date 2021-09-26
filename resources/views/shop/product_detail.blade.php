@@ -32,7 +32,7 @@
               <!-- Images Slider -->
               <div class="images-slider">
                 <ul class="slides">
-                  @foreach($product_image as $items)
+                  @foreach($product->image as $items)
                   <li data-thumb="{{asset('storage/'.$items->extra_large)}}"> <img class="img-responsive" src="{{asset('storage/'.$items->extra_large)}}"  alt=""> </li>
                   @endforeach
                 </ul>
@@ -50,14 +50,14 @@
               @else
               @endif
               <ul class="item-owner">
-                <li>Category :<span> {{ $product->category }}</span></li>
+                <li>Category :<span> {{ $product->category->name }}</span></li>
                 <li>Stock:<span> {{ $product->stock }}</span></li>
                 <li>Status:<span> {{ $product->status == 1 ? 'Available' : 'Non Available' }}</span></li>
               </ul>
 
               <!-- Item Detail -->
               <p>
-                {{ $product->detail }}
+                {!! $product->detail !!}
               </p>
 
               <!-- Short By -->
@@ -67,22 +67,13 @@
                     <div class="quinty">
                       <p>Qty</p>
                       <!-- QTY -->
-                      <select class="selectpicker">
-                        @php
-                        for ($i = 1; $i <= $product->stock; $i++) {
+                      <input type="number" min="1" max="{{ $product->stock }}" id="qty" class="qty" value="1">
 
-
-                        @endphp
-                        <option>{{ $i }}</option>
-                        @php
-                        }
-                        @endphp
-                      </select>
                     </div>
                   </li>
 
                   <!-- ADD TO CART -->
-                  <li class="col-xs-12"> <a href="#." class="btn">ADD TO CART</a> </li>
+                  <li class="col-xs-12"> <a href="#." class="btn" onclick="addToCart()">ADD TO CART</a> </li>
 
                   <!-- LIKE -->
                   <li class="col-xs-6"> <a href="#." class="like-us"><i class="icon-heart"></i></a> </li>
@@ -156,7 +147,7 @@
               <div class="media">
                 <div class="media-left">
                   <!--  Image -->
-                  <div class="avatar"> <a href="#"> <img class="media-object" src="images/avatar-1.jpg" alt=""> </a> </div>
+                  <div class="avatar"> <a href="#"> <img class="media-object" src="{{asset('shop/images/avatar-1.jpg')}}" alt=""> </a> </div>
                 </div>
                 <!--  Details -->
                 <div class="media-body">
@@ -171,7 +162,7 @@
               <div class="media">
                 <div class="media-left">
                   <!--  Image -->
-                  <div class="avatar"> <a href="#"> <img class="media-object" src="images/avatar-2.jpg" alt=""> </a> </div>
+                  <div class="avatar"> <a href="#"> <img class="media-object" src="{{asset('shop/images/avatar-2.jpg')}}" alt=""> </a> </div>
                 </div>
                 <!--  Details -->
                 <div class="media-body">
@@ -305,4 +296,51 @@
         </div>
       </div>
     </section>
+
+<script>
+
+function addToCart(event) {
+  var inputQty = document.getElementById('qty').value;
+  inputQty = parseInt(inputQty);
+
+  let product = {
+      id: {{ $product->id }},
+      name: '{{ $product->name }}',
+      category: {{ $product->product_category_id }},
+      price: {{ $product->retail_price }},
+      image: "{{asset('storage/'.$items->small)}}",
+      detail: "{{ $product->detail }}",
+      stock: {{ $product->stock }},
+      totalPrice: parseInt({{ $product->retail_price }}),
+      inCart: inputQty
+    }
+
+  addItemToLocal(product);
+}
+
+function addItemToLocal(product) {
+  let cartItems = JSON.parse(localStorage.getItem('productsInCart'));
+  
+  if(cartItems != null) {
+      if(cartItems[product.id] == undefined) {
+        cartItems = {
+          ...cartItems,
+          [product.id]: product
+        }
+      }
+      cartItems[product.id].inCart += product.inCart;
+      cartItems[product.id].totalPrice = cartItems[product.id].price * cartItems[product.id].inCart;
+    } else {
+      product.inCart = product.inCart;
+      cartItems = {
+        [product.id]: product
+      }
+    }
+       
+    localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+    // alert('['+cartItems[product.id].name.toUpperCase()+']\ntelah masuk keranjang!');
+    cartNumberDisplay()
+    displayCart();
+}
+</script>
 @endsection

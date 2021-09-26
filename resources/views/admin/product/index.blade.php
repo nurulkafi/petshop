@@ -36,7 +36,6 @@
                             <th>No</th>
                             <th>Name</th>
                             <th>Category</th>
-                            <th>Detail</th>
                             <th>Stock</th>
                             <th>V.Price</th>
                             <th>R.Price</th>
@@ -53,8 +52,7 @@
                             <tr>
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $p->name }}</td>
-                                <td>{{ $p->product_category_id }}</td>
-                                <td>{{ $p->detail }}</td>
+                                <td>{{ $p->category->name }}</td>
                                 <td>{{ $p->stock }}</td>
                                 <td>{{ number_format($p->vendor_price) }}</td>
                                 <td>{{ number_format($p->retail_price) }}</td>

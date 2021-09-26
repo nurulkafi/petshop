@@ -7,6 +7,8 @@ use App\Models\PetCategory;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
+use App\Models\Province;
+use App\Models\City;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
@@ -23,26 +25,7 @@ class ShopController extends Controller
         return view('shop.index');
     }
 
-    public function product()
-    {
-        $product = Product::paginate(10);
-        $petCategory = PetCategory::get();
-        $productCategory = ProductCategory::get();
-        return view('shop.product', compact('product', 'petCategory', 'productCategory'));
-    }
-
-    public function product_detail($id)
-    {
-        $product = DB::table('product as a')
-        ->leftjoin('product_category as b', 'a.product_category_id', '=', 'b.id')
-        ->select('a.*', 'b.name as category')
-        ->where('a.id', $id)
-        ->first();
-
-        $product_image = ProductImage::where('product_id', $id)->get();
-        return view('shop.product_detail', compact('product', 'product_image'));
-    }
-
+    
     public function cart()
     {
         return view('shop.shopping-cart');
@@ -50,7 +33,9 @@ class ShopController extends Controller
 
     public function checkout()
     {
-        return view('shop.checkout');
+        $province = Province::get();
+        $city = City::get();
+        return view('shop.checkout', compact('province', 'city'));
     }
 
     public function about()
@@ -128,6 +113,24 @@ class ShopController extends Controller
     {
         //
     }
+
+    public function product()
+    {
+        $product = Product::paginate(10);
+        $productCategory = ProductCategory::get();
+        return view('shop.product', compact('product', 'productCategory'));
+    }
+
+    public function product_detail($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        $productName = Product::where('product_category_id', $product->product_category_id)
+        ->where('name', '!=', $product->name)
+        ->paginate(5);
+
+        return view('shop.product_detail', compact('product', 'productName'));
+    }
+
     public function product_category($id){
         $cat = ProductCategory::where('slug', $id)->first();
         $product = Product::where('product_category_id', $cat->id)->paginate(10);

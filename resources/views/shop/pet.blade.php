@@ -111,7 +111,7 @@
                   @endif
                   <!-- Item Name -->
                   <div class="item-name"> <a href="{{url('/pet/detail/'.$p->slug)}}">{{ $p->name }}</a>
-                    <p>{{ $p->detail }}</p>
+                    <p>{!! $p->description !!}</p>
                   </div>
                   <!-- Price -->
                   <span class="price"><small>Rp.</small>{{ number_format($p->price) }}</span> </div>

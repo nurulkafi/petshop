@@ -65,14 +65,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="row">
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label for="detail">Detail/Description</label>
-                                            <textarea type="text" class="form-control round" name="detail"  id="detail">{{ $data->detail }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
+                                <label for="detail">Description</label>
+                                <textarea type="text" class="form-control round" name="detail"  id="detail">
+                                    {!! $data->detail !!}
+                                </textarea>
                             </div>
                                                                
                             <div class="form-group">
@@ -128,6 +124,28 @@
 <script src="{{ asset('admin/assets/vendors/choices.js/choices.min.js') }}"></script>
 <script src="{{ asset('admin/assets/js/pages/form-element-select.js') }}"></script>
 {{-- Cke Editor --}}
+<script>
+    CKEDITOR.replace('detail', {
+                    // Define the toolbar groups as it is a more accessible solution.
+                    toolbarGroups: [
+                        { "name": 'document', "groups": [ 'mode', 'document', 'doctools' ] },
+                        { "name": 'clipboard', "groups": [ 'clipboard', 'undo' ] },
+                        { "name": 'editing', "groups": [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                        { "name": 'forms', "groups": [ 'forms' ] },
+                        { "name": 'basicstyles', "groups": [ 'basicstyles', 'cleanup' ] },
+                        { "name": 'paragraph', "groups": [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                        { "name": 'links', "groups": [ 'links' ] },
+                        { "name": 'insert', "groups": [ 'insert' ] },
+                        { "name": 'styles', "groups": [ 'styles' ] },
+                        { "name": 'colors', "groups": [ 'colors' ] },
+                        { "name": 'tools', "groups": [ 'tools' ] },
+                        { "name": 'others', "groups": [ 'others' ] },
+                        { "name": 'about', "groups": [ 'about' ] }
+                    ],
+                    // Remove the redundant buttons from toolbar groups defined above.
+                    removeButtons: 'Source,Save,Templates,PasteFromWord,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,RemoveFormat,Blockquote,CreateDiv,Outdent,Indent,BidiLtr,BidiRtl,Language,Link,Unlink,Anchor,Image,Flash,Table,HorizontalRule,SpecialChar,PageBreak,Iframe,Styles,Format,Font,FontSize,TextColor,BGColor,Maximize,ShowBlocks,About,NewPage,ExportPdf,Preview,Print'
+                });
+</script>
 <script>
 // Format mata uang.
 $( '.uang' ).mask('000.000.000', {reverse: true});

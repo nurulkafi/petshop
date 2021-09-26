@@ -88,6 +88,7 @@ class ProductController extends Controller
         $saved = Product::create([                
             'product_category_id' => $params['product_category_id'],
             'name' => $params['name'],
+            'slug' => Str::slug($params['name']),
             'detail' => $params['detail'],
             'stock' => $params['stock'],
             'vendor_price' => $params['vendor_price'],

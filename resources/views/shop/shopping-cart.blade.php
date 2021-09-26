@@ -94,7 +94,7 @@
 
                 </div>  
                 <div class="coupn-btn">                
-                  <a href="#." class="btn" style="background: #eeeeee;">Checkout</a>
+                  <a href="{{ url('checkout') }}" class="btn" style="background: #eeeeee;">Checkout</a>
                 </div>        
               </div>              
             </div>
@@ -172,7 +172,7 @@
               <div class="position-center-center">
                 <div class="quantity"> 
                   <!-- QTY -->
-                  <input type="number" value="${item.inCart}" min="0" max="${item.stock}" class="qty" data-id=${item.id}>
+                  <input type="number" value="${item.inCart}" min="1" max="${item.stock}" class="qty" data-id=${item.id}>
                 </div>
               </div>
             </li>

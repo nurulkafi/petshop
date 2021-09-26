@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ProductCategory;
 use RealRashid\SweetAlert\Facades\Alert;
+use Str;
 
 class ProductCategoryController extends Controller
 {
@@ -43,6 +44,7 @@ class ProductCategoryController extends Controller
 
         $saved = ProductCategory::create([
             'name' => $params['name'],
+            'slug' => Str::slug($params['name']),
             'user_id' => Auth::user()->id
         ]);
 
